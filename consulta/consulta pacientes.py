@@ -1,0 +1,23 @@
+import sqlite3 as sq
+
+DB_PATH = 'albert_DADOS/hospital.db'
+
+def get_conection():
+    return sq.connect(DB_PATH)
+
+def consultas_do_medico(id_medico):
+    with get_conection() as conn:
+        cur = conn.cursor()
+        cur.execute('''
+            SELECT pacientes * FROM pasciente_id
+        ''', (id_medico,))
+        
+        resultados = cur.fetchall()
+        return resultados
+
+
+cr = consultas_do_medico(1)
+
+
+for data, hora in cr:
+    print(f"Consulta em {data}")
